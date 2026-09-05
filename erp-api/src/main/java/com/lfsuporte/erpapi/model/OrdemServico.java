@@ -12,7 +12,7 @@ public class OrdemServico {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    // --- NOVA LIGAÇÃO COM O CLIENTE ---
+    // --- LIGAÇÃO COM O CLIENTE ---
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
@@ -27,6 +27,11 @@ public class OrdemServico {
     private String status;
 
     private LocalDateTime dataAbertura;
+
+    // NOVOS CAMPOS ADICIONADOS
+    private Double valor;
+    private String solucaoTecnica;
+    private String dataCriacao;
 
     public OrdemServico() {
         this.dataAbertura = LocalDateTime.now();
@@ -80,5 +85,30 @@ public class OrdemServico {
 
     public void setDataAbertura(LocalDateTime dataAbertura) {
         this.dataAbertura = dataAbertura;
+    }
+
+    // GETTERS E SETTERS DOS NOVOS CAMPOS
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public String getSolucaoTecnica() {
+        return solucaoTecnica;
+    }
+
+    public void setSolucaoTecnica(String solucaoTecnica) {
+        this.solucaoTecnica = solucaoTecnica;
+    }
+
+    public String getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(String dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }
