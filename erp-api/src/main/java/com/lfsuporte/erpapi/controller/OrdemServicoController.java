@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -27,7 +26,7 @@ public class OrdemServicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrdemServico> buscarPorId(@PathVariable UUID id) {
+    public ResponseEntity<OrdemServico> buscarPorId(@PathVariable String id) {
         return ordemServicoRepository.findById(id)
                 .map(ordem -> ResponseEntity.ok(ordem))
                 .orElse(ResponseEntity.notFound().build());
@@ -49,7 +48,7 @@ public class OrdemServicoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrdemServico> atualizar(@PathVariable UUID id, @RequestBody OrdemServico ordemAtualizada) {
+    public ResponseEntity<OrdemServico> atualizar(@PathVariable String id, @RequestBody OrdemServico ordemAtualizada) {
         return ordemServicoRepository.findById(id)
                 .map(ordemExistente -> {
                     ordemExistente.setEquipamento(ordemAtualizada.getEquipamento());
@@ -70,7 +69,7 @@ public class OrdemServicoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
         if (ordemServicoRepository.existsById(id)) {
             ordemServicoRepository.deleteById(id);
             return ResponseEntity.noContent().build();

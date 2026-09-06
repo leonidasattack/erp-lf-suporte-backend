@@ -1,31 +1,24 @@
 package com.lfsuporte.erpapi.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-@Entity
-@Table(name = "ordens_servico")
+@Document(collection = "ordens_servico")
 public class OrdemServico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
     // --- LIGAÇÃO COM O CLIENTE ---
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @DBRef
     private Cliente cliente;
     // ----------------------------------
 
-    @Column(nullable = false)
     private String equipamento;
-
-    @Column(nullable = false)
     private String defeitoRelatado;
-
     private String status;
-
     private LocalDateTime dataAbertura;
 
     // NOVOS CAMPOS ADICIONADOS
@@ -39,11 +32,11 @@ public class OrdemServico {
     }
 
     // Getters e Setters
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -87,7 +80,6 @@ public class OrdemServico {
         this.dataAbertura = dataAbertura;
     }
 
-    // GETTERS E SETTERS DOS NOVOS CAMPOS
     public Double getValor() {
         return valor;
     }

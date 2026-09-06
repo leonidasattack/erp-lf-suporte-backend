@@ -1,27 +1,23 @@
 package com.lfsuporte.erpapi.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-@Entity
-@Table(name = "empresas")
+@Document(collection = "empresas")
 public class Empresa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
-    @Column(name = "razao_social", nullable = false)
     private String razaoSocial;
 
-    @Column(name = "nome_fantasia", nullable = false)
     private String nomeFantasia;
 
-    @Column(name = "cpf_cnpj", nullable = false, length = 18, unique = true)
+    @Indexed(unique = true)
     private String cpfCnpj;
 
-    @Column(name = "cnpj", nullable = false, length = 18)
     private String cnpj;
 
     private String cep;
@@ -31,10 +27,8 @@ public class Empresa {
     private String cidade;
     private String estado;
 
-    @Column(name = "criado_em", updatable = false)
     private LocalDateTime criadoEm;
 
-    @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
     public Empresa() {
@@ -42,11 +36,11 @@ public class Empresa {
 
     // --- GETTERS E SETTERS ---
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

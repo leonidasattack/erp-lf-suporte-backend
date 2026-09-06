@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/clientes")
@@ -24,7 +23,7 @@ public class ClienteController {
 
     // ROTA GET por ID: Busca um cliente específico
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> buscarPorId(@PathVariable UUID id) {
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable String id) {
         return clienteRepository.findById(id)
                 .map(cliente -> ResponseEntity.ok(cliente))
                 .orElse(ResponseEntity.notFound().build());
@@ -38,7 +37,7 @@ public class ClienteController {
 
     // ROTA PUT: Atualiza os dados de um cliente existente
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable UUID id, @RequestBody Cliente clienteAtualizado) {
+    public ResponseEntity<Cliente> atualizar(@PathVariable String id, @RequestBody Cliente clienteAtualizado) {
         return clienteRepository.findById(id)
                 .map(clienteExistente -> {
                     clienteExistente.setNome(clienteAtualizado.getNome());
@@ -54,7 +53,7 @@ public class ClienteController {
 
     // ROTA DELETE: Remove um cliente pelo ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
         if (clienteRepository.existsById(id)) {
             clienteRepository.deleteById(id);
             return ResponseEntity.noContent().build();

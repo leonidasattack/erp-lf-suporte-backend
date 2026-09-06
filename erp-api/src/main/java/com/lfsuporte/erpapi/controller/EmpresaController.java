@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/empresas")
@@ -22,9 +21,9 @@ public class EmpresaController {
         return empresaRepository.findAll();
     }
 
-    // ROTA GET por ID: Busca uma empresa específica pelo seu ID (UUID)
+    // ROTA GET por ID: Busca uma empresa específica pelo seu ID
     @GetMapping("/{id}")
-    public ResponseEntity<Empresa> buscarPorId(@PathVariable UUID id) {
+    public ResponseEntity<Empresa> buscarPorId(@PathVariable String id) {
         return empresaRepository.findById(id)
                 .map(empresa -> ResponseEntity.ok(empresa))
                 .orElse(ResponseEntity.notFound().build());
@@ -32,7 +31,7 @@ public class EmpresaController {
 
     // ROTA PUT: Atualiza os dados de uma empresa existente pelo ID
     @PutMapping("/{id}")
-    public ResponseEntity<Empresa> atualizar(@PathVariable UUID id, @RequestBody Empresa empresaAtualizada) {
+    public ResponseEntity<Empresa> atualizar(@PathVariable String id, @RequestBody Empresa empresaAtualizada) {
         return empresaRepository.findById(id)
                 .map(empresaExistente -> {
                     empresaExistente.setRazaoSocial(empresaAtualizada.getRazaoSocial());
@@ -60,7 +59,7 @@ public class EmpresaController {
 
     // ROTA DELETE: Remove uma empresa do banco de dados pelo ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
         if (empresaRepository.existsById(id)) {
             empresaRepository.deleteById(id);
             return ResponseEntity.noContent().build(); // Retorna Status 204 (Sucesso, sem conteúdo)

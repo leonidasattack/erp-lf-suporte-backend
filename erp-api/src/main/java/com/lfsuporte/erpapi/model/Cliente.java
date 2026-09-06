@@ -1,35 +1,33 @@
 package com.lfsuporte.erpapi.model;
 
-import jakarta.persistence.*;
-import java.util.UUID;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "clientes")
+@Document(collection = "clientes")
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
-    @Column(nullable = false)
     private String nome;
 
-    @Column(unique = true)
+    @Indexed(unique = true)
     private String cpf;
 
     private String telefone;
     private String email;
 
-    // Construtor vazio exigido pelo JPA
+    // Construtor vazio
     public Cliente() {
     }
 
     // Getters e Setters
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
