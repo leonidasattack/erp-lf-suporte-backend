@@ -46,4 +46,4 @@ O ecossistema do servidor foi construído utilizando as seguintes ferramentas:
 
 1. **Clone este repositório**
    ```bash
-  git clone https://github.com/leonidas-ferreira/erp-lf-suporte-backend.git
+git clone https://github.com/leonidas-ferreira/erp-lf-software-backend.git
